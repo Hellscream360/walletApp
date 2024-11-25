@@ -99,10 +99,10 @@ export default function WalletView() {
       <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-sky-200">{wallet.name}</h1>
-          <div className="flex space-x-4">
+          <div className="flex flex-col md:flex-row gap-x-4">
             <button
               onClick={handleShare}
-              className="flex items-center space-x-2 text-gray-600 dark:text-sky-200 dark:hover:text-sky-300 hover:text-gray-900"
+              className="flex items-center space-x-1 text-gray-600 dark:text-sky-200 dark:hover:text-sky-300 hover:text-gray-900"
             >
               <Share2 size={20} />
               <span>Share</span>
@@ -111,14 +111,14 @@ export default function WalletView() {
               <>
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600"
+                  className="flex items-center space-x-1 text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600"
                 >
                   <Edit2 size={20} />
                   <span>Edit</span>
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="flex items-center space-x-2 text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
+                  className="flex items-center space-x-1 text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
                 >
                   <Trash2 size={20} />
                   <span>Delete</span>

@@ -24,7 +24,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <Wallet className="h-6 w-6 text-blue-600 dark:text-sky-200" />
-            <span className="text-xl font-bold text-gray-900 dark:text-sky-100">WalletVision</span>
+            <span className="hidden sm:block text-xl font-bold text-gray-900 dark:text-sky-100">WalletVision</span>
           </Link>
 
           <div className="flex items-center space-x-4">
@@ -36,7 +36,7 @@ export default function Navbar() {
                   className="flex items-center space-x-1 text-gray-600 dark:text-sky-200 dark:hover:text-sky-400 hover:text-gray-900"
                 >
                   <LogOut className="h-4 w-4" />
-                  <span>Sign Out</span>
+                  <span className="hidden sm:block">Sign Out</span>
                 </button>
               </>
             ) : (
@@ -47,8 +47,8 @@ export default function Navbar() {
                 Sign In
               </Link>
             )}
-            <div>
             <ThemeToggle />
+            <div>
         </div>
           </div>
         </div>

@@ -14,24 +14,9 @@ export default function WalletView() {
   const navigate = useNavigate();
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
 
   useEffect(() => {
     loadWallet();
-
-    // Écoute les changements de préférence de thème
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-    };
-    mediaQuery.addEventListener('change', handleChange);
-
-    // Nettoie l'écouteur lors du démontage du composant
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange);
-    };
   }, [id]);
 
   const loadWallet = async () => {
@@ -42,7 +27,7 @@ export default function WalletView() {
       .single();
 
     if (error) {
-      toast.error('Erreur lors du chargement du portefeuille');
+      toast.error('Error loading wallet');
       navigate('/');
       return;
     }
@@ -52,8 +37,8 @@ export default function WalletView() {
 
   const handleShare = async () => {
     const shareData = {
-      title: `${wallet?.name} - Répartition du portefeuille`,
-      text: `Découvrez mon portefeuille d'investissement sur WalletVision !`,
+      title: `${wallet?.name} - Portfolio Breakdown`,
+      text: `Check out my investment portfolio on WalletVision!`,
       url: window.location.href,
     };
 
@@ -62,15 +47,15 @@ export default function WalletView() {
         await navigator.share(shareData);
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        toast.success('Lien copié dans le presse-papiers !');
+        toast.success('Link copied to clipboard!');
       }
     } catch (error) {
-      toast.error('Erreur lors du partage du portefeuille');
+      toast.error('Error sharing wallet');
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce portefeuille ?')) return;
+    if (!window.confirm('Are you sure you want to delete this wallet?')) return;
 
     const { error } = await supabase
       .from('wallets')
@@ -78,11 +63,11 @@ export default function WalletView() {
       .eq('id', id);
 
     if (error) {
-      toast.error('Erreur lors de la suppression du portefeuille');
+      toast.error('Error deleting wallet');
       return;
     }
 
-    toast.success('Portefeuille supprimé avec succès');
+    toast.success('Wallet deleted successfully');
     navigate('/');
   };
 
@@ -94,23 +79,17 @@ export default function WalletView() {
       data: wallet.categories.map(cat => cat.percentage),
       backgroundColor: wallet.categories.map(cat => cat.color),
       borderWidth: 4,
-      borderColor: isDarkMode ? '#152342' : '#FFF',
-    }],
+      borderColor: '#152342'
+    }]
   };
 
   const options = {
     plugins: {
       legend: {
-        position: 'bottom' as const,
-        labels: {
-          padding: 20,
-          font: {
-            size: 14,
-          },
-        },
-      },
+        display: false
+      }
     },
-    cutout: '60%',
+    cutout: '65%'
   };
 
   const isOwner = user?.id === wallet.userId;
@@ -126,7 +105,7 @@ export default function WalletView() {
               className="flex items-center space-x-2 text-gray-600 dark:text-sky-200 dark:hover:text-sky-300 hover:text-gray-900"
             >
               <Share2 size={20} />
-              <span>Partager</span>
+              <span>Share</span>
             </button>
             {isOwner && (
               <>
@@ -135,14 +114,14 @@ export default function WalletView() {
                   className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600"
                 >
                   <Edit2 size={20} />
-                  <span>Modifier</span>
+                  <span>Edit</span>
                 </button>
                 <button
                   onClick={handleDelete}
                   className="flex items-center space-x-2 text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
                 >
                   <Trash2 size={20} />
-                  <span>Supprimer</span>
+                  <span>Delete</span>
                 </button>
               </>
             )}
@@ -150,7 +129,7 @@ export default function WalletView() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="w-full max-w-md mx-auto">
+          <div className="w-full max-w-xs mx-auto">
             <Doughnut data={data} options={options} />
           </div>
 
@@ -158,16 +137,16 @@ export default function WalletView() {
             {wallet.categories.map((category) => (
               <div
                 key={category.name}
-                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-sky-900 rounded-lg"
               >
                 <div className="flex items-center space-x-3">
                   <div
                     className="w-4 h-4 rounded-full"
                     style={{ backgroundColor: category.color }}
                   />
-                  <span className="font-medium text-gray-900 dark:text-gray-100">{category.name}</span>
+                  <span className="font-medium text-gray-900 dark:text-sky-200">{category.name}</span>
                 </div>
-                <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <span className="text-lg font-semibold text-gray-900 dark:text-sky-200">
                   {category.percentage}%
                 </span>
               </div>

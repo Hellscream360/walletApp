@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -31,9 +30,9 @@ export default function WalletCard({ wallet }: WalletCardProps) {
 
   return (
     <Link to={`/wallets/${wallet.id}`} className="block">
-      <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-800">{wallet.name}</h3>
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-sky-200">{wallet.name}</h3>
         </div>
         <div className="w-48 h-48 mx-auto">
           <Doughnut data={data} options={options} />
@@ -45,7 +44,7 @@ export default function WalletCard({ wallet }: WalletCardProps) {
                 className="w-3 h-3 rounded-full mr-2"
                 style={{ backgroundColor: category.color }}
               />
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-sky-300">
                 {category.name} ({category.percentage}%)
               </span>
             </div>

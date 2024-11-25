@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Share2, Edit2, Trash2 } from 'lucide-react';
 import { Doughnut } from 'react-chartjs-2';
@@ -14,9 +14,24 @@ export default function WalletView() {
   const navigate = useNavigate();
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
 
   useEffect(() => {
     loadWallet();
+
+    // Écoute les changements de préférence de thème
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+    mediaQuery.addEventListener('change', handleChange);
+
+    // Nettoie l'écouteur lors du démontage du composant
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
   }, [id]);
 
   const loadWallet = async () => {
@@ -27,7 +42,7 @@ export default function WalletView() {
       .single();
 
     if (error) {
-      toast.error('Error loading wallet');
+      toast.error('Erreur lors du chargement du portefeuille');
       navigate('/');
       return;
     }
@@ -37,8 +52,8 @@ export default function WalletView() {
 
   const handleShare = async () => {
     const shareData = {
-      title: `${wallet?.name} - Portfolio Breakdown`,
-      text: `Check out my investment portfolio on WalletVision!`,
+      title: `${wallet?.name} - Répartition du portefeuille`,
+      text: `Découvrez mon portefeuille d'investissement sur WalletVision !`,
       url: window.location.href,
     };
 
@@ -47,15 +62,15 @@ export default function WalletView() {
         await navigator.share(shareData);
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        toast.success('Link copied to clipboard!');
+        toast.success('Lien copié dans le presse-papiers !');
       }
     } catch (error) {
-      toast.error('Error sharing wallet');
+      toast.error('Erreur lors du partage du portefeuille');
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this wallet?')) return;
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce portefeuille ?')) return;
 
     const { error } = await supabase
       .from('wallets')
@@ -63,11 +78,11 @@ export default function WalletView() {
       .eq('id', id);
 
     if (error) {
-      toast.error('Error deleting wallet');
+      toast.error('Erreur lors de la suppression du portefeuille');
       return;
     }
 
-    toast.success('Wallet deleted successfully');
+    toast.success('Portefeuille supprimé avec succès');
     navigate('/');
   };
 
@@ -78,8 +93,9 @@ export default function WalletView() {
     datasets: [{
       data: wallet.categories.map(cat => cat.percentage),
       backgroundColor: wallet.categories.map(cat => cat.color),
-      borderWidth: 0
-    }]
+      borderWidth: 4,
+      borderColor: isDarkMode ? '#152342' : '#FFF',
+    }],
   };
 
   const options = {
@@ -89,44 +105,44 @@ export default function WalletView() {
         labels: {
           padding: 20,
           font: {
-            size: 14
-          }
-        }
-      }
+            size: 14,
+          },
+        },
+      },
     },
-    cutout: '60%'
+    cutout: '60%',
   };
 
   const isOwner = user?.id === wallet.userId;
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-xl shadow-lg p-8">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">{wallet.name}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-sky-200">{wallet.name}</h1>
           <div className="flex space-x-4">
             <button
               onClick={handleShare}
-              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center space-x-2 text-gray-600 dark:text-sky-200 dark:hover:text-sky-300 hover:text-gray-900"
             >
               <Share2 size={20} />
-              <span>Share</span>
+              <span>Partager</span>
             </button>
             {isOwner && (
               <>
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="flex items-center space-x-2 text-blue-600 hover:text-blue-700"
+                  className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-600"
                 >
                   <Edit2 size={20} />
-                  <span>Edit</span>
+                  <span>Modifier</span>
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="flex items-center space-x-2 text-red-600 hover:text-red-700"
+                  className="flex items-center space-x-2 text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
                 >
                   <Trash2 size={20} />
-                  <span>Delete</span>
+                  <span>Supprimer</span>
                 </button>
               </>
             )}
@@ -142,16 +158,16 @@ export default function WalletView() {
             {wallet.categories.map((category) => (
               <div
                 key={category.name}
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
               >
                 <div className="flex items-center space-x-3">
                   <div
                     className="w-4 h-4 rounded-full"
                     style={{ backgroundColor: category.color }}
                   />
-                  <span className="font-medium text-gray-900">{category.name}</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-100">{category.name}</span>
                 </div>
-                <span className="text-lg font-semibold text-gray-900">
+                <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   {category.percentage}%
                 </span>
               </div>

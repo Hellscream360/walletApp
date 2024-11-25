@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import WalletCard from '../components/WalletCard';
@@ -31,7 +31,7 @@ export default function Dashboard() {
   if (!user) {
     return (
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-800">Please log in to view your wallets</h2>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-sky-200">Please log in to view your wallets</h2>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function Dashboard() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">My Wallets</h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-sky-200">My Wallets</h1>
         <button 
           onClick={() => setShowForm(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700"

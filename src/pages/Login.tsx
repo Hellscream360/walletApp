@@ -23,17 +23,17 @@ export default function Login() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center">
-      <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+      <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-lg max-w-md w-full">
         <div className="flex justify-center mb-6">
           <Wallet className="h-12 w-12 text-blue-600" />
         </div>
-        <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
+        <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-sky-100 mb-8">
           Sign in to WalletVision
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-sky-200 mb-2">
               Email
             </label>
             <input
@@ -46,7 +46,7 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-sky-200 mb-2">
               Password
             </label>
             <input

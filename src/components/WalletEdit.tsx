@@ -154,7 +154,7 @@ export default function WalletEdit({ wallet, onClose, onSuccess }: WalletEditPro
           updated_at: new Date().toISOString()
         })
         .eq('id', wallet.id)
-        .eq('user_id', user?.id);
+        .eq('userId', user?.id);
 
       if (error) throw error;
 

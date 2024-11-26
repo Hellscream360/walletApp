@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import WalletView from './pages/WalletView';
+import Profile from './pages/Profile';
 import { AuthProvider } from './context/AuthContext';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/wallets/:id" element={<WalletView />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </main>
           <Toaster position="bottom-right" />

@@ -80,5 +80,5 @@ CREATE INDEX idx_wallet_categories ON wallets USING gin (categories);
 CREATE POLICY "Users can only access their own wallets"
     ON wallets
     FOR ALL
-    USING (auth.uid() = user_id)
-    WITH CHECK (auth.uid() = user_id);
+    USING (auth.uid() = userId)
+    WITH CHECK (auth.uid() = userId);

@@ -4,7 +4,6 @@ const ThemeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // Vérifie le thème stocké dans le localStorage ou utilise le thème système par défaut
     const storedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -31,37 +30,36 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
       aria-label="Toggle theme"
+      title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDarkMode ? (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-yellow-500"
-          fill="none"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
-          stroke="currentColor"
+          className="fill-current"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 3v1m0 16v1m8.66-8.66h-1M4.34 12h-1m15.07 4.24l-.7-.7M6.34 6.34l-.7-.7m12.02 12.02l-.7-.7M6.34 17.66l-.7-.7M12 5a7 7 0 100 14 7 7 0 000-14z"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2a6 6 0 1 0 0-12 6 6 0 0 0 0 12ZM11 0h2v4.062a8.079 8.079 0 0 0-2 0V0ZM7.094 5.68 4.222 2.808 2.808 4.222 5.68 7.094A8.048 8.048 0 0 1 7.094 5.68ZM4.062 11H0v2h4.062a8.079 8.079 0 0 1 0-2Zm1.618 5.906-2.872 2.872 1.414 1.414 2.872-2.872a8.048 8.048 0 0 1-1.414-1.414ZM11 19.938V24h2v-4.062a8.079 8.079 0 0 1-2 0Zm5.906-1.618 2.872 2.872 1.414-1.414-2.872-2.872a8.048 8.048 0 0 1-1.414 1.414ZM19.938 13H24v-2h-4.062a8.079 8.079 0 0 1 0 2Zm-1.618-5.906 2.872-2.872-1.414-1.414-2.872 2.872a8.048 8.048 0 0 1 1.414 1.414Z"
           />
         </svg>
       ) : (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-gray-800"
-          fill="none"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
-          stroke="currentColor"
+          className="fill-current"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 3v1m0 16v1m8.66-8.66h-1M4.34 12h-1m15.07 4.24l-.7-.7M6.34 6.34l-.7-.7m12.02 12.02l-.7-.7M6.34 17.66l-.7-.7M12 5a7 7 0 100 14 7 7 0 000-14z"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12.226 2.003a9.971 9.971 0 0 0-7.297 2.926c-3.905 3.905-3.905 10.237 0 14.142 3.905 3.905 10.237 3.905 14.142 0a9.972 9.972 0 0 0 2.926-7.297 10.037 10.037 0 0 0-.337-2.368 14.87 14.87 0 0 1-1.744 1.436c-1.351.97-2.733 1.686-4.129 2.167-1.395.48-2.917.783-4.496.783-1.579 0-3.101-.303-4.496-.783-1.396-.481-2.778-1.197-4.129-2.167-1.351-.97-2.447-2.074-3.417-3.425C.269 6.071-.447 4.689-.928 3.293-.952 3.215-.975 3.137-.997 3.059A9.971 9.971 0 0 1 2.003 4.93c3.905 3.905 10.237 3.905 14.142 0a9.971 9.971 0 0 1 1.871-3.019 10.037 10.037 0 0 0-5.79.092Z"
           />
         </svg>
       )}

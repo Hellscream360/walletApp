@@ -8,6 +8,7 @@ export default function Register() {
   const { signUp } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
+    firstName: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -24,6 +25,11 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!formData.firstName.trim()) {
+      toast.error('First name is required');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
       return;
@@ -31,7 +37,7 @@ export default function Register() {
 
     try {
       setIsLoading(true);
-      await signUp(formData.email, formData.password);
+      await signUp(formData.email, formData.password, formData.firstName.trim());
       toast.success('Account created successfully!');
       navigate('/');
     } catch (error) {
@@ -50,6 +56,25 @@ export default function Register() {
         </h1>
         
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label 
+              htmlFor="firstName" 
+              className="block text-sm font-medium text-secondary-700 dark:text-secondary-200 mb-2"
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              required
+              value={formData.firstName}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-lg border border-secondary-200 dark:border-secondary-600 bg-white dark:bg-secondary-700 text-secondary-900 dark:text-secondary-50 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
+              placeholder="Enter your first name"
+            />
+          </div>
+
           <div>
             <label 
               htmlFor="email" 
@@ -110,7 +135,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Creating Account...' : 'Create Account'}
           </button>

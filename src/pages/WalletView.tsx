@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Share2, Edit2, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Share2, Edit2, ChevronDown, ChevronUp, Facebook } from 'lucide-react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import toast from 'react-hot-toast';
@@ -10,6 +10,31 @@ import type { Wallet } from '../types';
 import WalletEdit from '../components/WalletEdit';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+const XIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    className="fill-current"
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const CrossIcon = () => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    className="fill-none stroke-current"
+    strokeWidth="2"
+    strokeLinecap="round"
+  >
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
 
 export default function WalletView() {
   const { id } = useParams();
@@ -39,18 +64,34 @@ export default function WalletView() {
     setWallet(data);
   };
 
-  const handleShare = async () => {
+  const handleShare = async (platform?: 'x' | 'facebook') => {
+    const shareUrl = window.location.href;
+    const shareText = `Check out my investment portfolio "${wallet?.name}" on WalletVision!`;
+
+    if (platform === 'x') {
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(twitterUrl, '_blank');
+      return;
+    }
+
+    if (platform === 'facebook') {
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      window.open(facebookUrl, '_blank');
+      return;
+    }
+
+    // Default native share
     const shareData = {
       title: `${wallet?.name} - Portfolio Breakdown`,
-      text: `Check out my investment portfolio on WalletVision!`,
-      url: window.location.href,
+      text: shareText,
+      url: shareUrl,
     };
 
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(window.location.href);
+        await navigator.clipboard.writeText(shareUrl);
         toast.success('Link copied to clipboard!');
       }
     } catch (error) {
@@ -164,26 +205,43 @@ export default function WalletView() {
       <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-8 mb-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-sky-200">{wallet.name}</h1>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <button
-              onClick={handleShare}
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+              onClick={() => handleShare('x')}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              title="Share on X"
             >
-              <Share2 size={24} />
+              <XIcon />
+            </button>
+            <button
+              onClick={() => handleShare('facebook')}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              title="Share on Facebook"
+            >
+              <Facebook className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => handleShare()}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              title="Share"
+            >
+              <Share2 className="w-5 h-5" />
             </button>
             {isOwner && (
               <>
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                  title="Edit wallet"
                 >
-                  <Edit2 size={24} />
+                  <Edit2 className="w-5 h-5" />
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="p-2 text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400"
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                  title="Delete wallet"
                 >
-                  <Trash2 size={24} />
+                  <CrossIcon />
                 </button>
               </>
             )}

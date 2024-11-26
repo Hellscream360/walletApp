@@ -3,9 +3,10 @@ import { X, Plus, ChevronDown, ChevronUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
-import type { WalletCategory, SubCategory } from '../types';
+import type { Wallet, WalletCategory, SubCategory } from '../types';
 
-interface WalletFormProps {
+interface WalletEditProps {
+  wallet: Wallet;
   onClose: () => void;
   onSuccess: () => void;
 }
@@ -20,12 +21,15 @@ const SUB_COLORS = [
   '#F9A8D4', '#C4B5FD', '#5EEAD4', '#FDBA74', '#67E8F9'
 ];
 
-export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
+export default function WalletEdit({ wallet, onClose, onSuccess }: WalletEditProps) {
   const { user } = useAuth();
-  const [name, setName] = useState('');
-  const [categories, setCategories] = useState<WalletCategory[]>([
-    { name: '', percentage: 0, color: DEFAULT_COLORS[0], subCategories: [] }
-  ]);
+  const [name, setName] = useState(wallet.name);
+  const [categories, setCategories] = useState<WalletCategory[]>(
+    wallet.categories.map(cat => ({
+      ...cat,
+      subCategories: cat.subCategories || []
+    }))
+  );
   const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
 
   const toggleCategory = (index: number) => {
@@ -54,13 +58,14 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
 
   const updateCategory = (index: number, field: keyof WalletCategory, value: string | number) => {
     const newCategories = [...categories];
+    if (field === 'subCategories') return; // Prevent direct modification of subCategories
     newCategories[index] = { ...newCategories[index], [field]: value };
     setCategories(newCategories);
   };
 
   const addSubCategory = (categoryIndex: number) => {
     const category = categories[categoryIndex];
-    if (!category.subCategories || category.subCategories.length >= 10) {
+    if (category.subCategories && category.subCategories.length >= 10) {
       toast.error('Maximum 10 sub-categories allowed');
       return;
     }
@@ -75,7 +80,7 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
           percentage: 0,
           color: SUB_COLORS[category.subCategories?.length || 0]
         }
-      ]
+      ],
     };
     setCategories(newCategories);
   };
@@ -83,10 +88,16 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
   const removeSubCategory = (categoryIndex: number, subCategoryIndex: number) => {
     const newCategories = [...categories];
     const category = categories[categoryIndex];
+    
+    const updatedSubCategories = category.subCategories ? 
+      category.subCategories.filter((_, index) => index !== subCategoryIndex) : 
+      [];
+
     newCategories[categoryIndex] = {
       ...category,
-      subCategories: category.subCategories?.filter((_, i) => i !== subCategoryIndex)
+      subCategories: updatedSubCategories
     };
+    
     setCategories(newCategories);
   };
 
@@ -98,20 +109,20 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
   ) => {
     const newCategories = [...categories];
     const category = categories[categoryIndex];
-    if (category.subCategories) {
-      const newSubCategories = [...category.subCategories];
-      newSubCategories[subCategoryIndex] = {
-        ...newSubCategories[subCategoryIndex],
-        [field]: value
-      };
-      newCategories[categoryIndex] = { ...category, subCategories: newSubCategories };
-      setCategories(newCategories);
-    }
+    if (!category.subCategories) return;
+
+    const newSubCategories = [...category.subCategories];
+    newSubCategories[subCategoryIndex] = {
+      ...newSubCategories[subCategoryIndex],
+      [field]: value
+    };
+    newCategories[categoryIndex] = { ...category, subCategories: newSubCategories };
+    setCategories(newCategories);
   };
 
   const validatePercentages = () => {
     const totalMain = categories.reduce((sum, cat) => sum + cat.percentage, 0);
-    if (totalMain !== 100) {
+    if (Math.round(totalMain) !== 100) {
       toast.error('Main category percentages must add up to 100%');
       return false;
     }
@@ -119,7 +130,7 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
     for (const category of categories) {
       if (category.subCategories && category.subCategories.length > 0) {
         const totalSub = category.subCategories.reduce((sum, sub) => sum + sub.percentage, 0);
-        if (totalSub !== 100) {
+        if (Math.round(totalSub) !== 100) {
           toast.error(`Sub-categories for ${category.name} must add up to 100%`);
           return false;
         }
@@ -135,34 +146,37 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
     if (!validatePercentages()) return;
 
     try {
-      const { error } = await supabase.from('wallets').insert({
-        name,
-        userId: user?.id,
-        categories,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      });
+      const { error } = await supabase
+        .from('wallets')
+        .update({
+          name,
+          categories,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', wallet.id)
+        .eq('user_id', user?.id);
 
       if (error) throw error;
 
-      toast.success('Wallet created successfully');
+      toast.success('Wallet updated successfully');
       onSuccess();
       onClose();
     } catch (error) {
-      toast.error('Error creating wallet');
+      console.error('Error updating wallet:', error);
+      toast.error('Error updating wallet');
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <h2 className="text-2xl font-bold text-secondary-900 dark:text-secondary-50 mb-6">
-            Create New Wallet
+            Edit Wallet
           </h2>
           
-          <form onSubmit={handleSubmit}>
-            <div className="mb-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
               <label className="block text-sm font-medium text-secondary-700 dark:text-secondary-200 mb-2">
                 Wallet Name
               </label>
@@ -293,7 +307,7 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
                 type="submit"
                 className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
-                Create Wallet
+                Save Changes
               </button>
             </div>
           </form>

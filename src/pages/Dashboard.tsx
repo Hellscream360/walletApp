@@ -98,7 +98,11 @@ export default function Dashboard() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {wallets.map((wallet) => (
-          <WalletCard key={wallet.id} wallet={wallet} />
+          <WalletCard 
+            key={wallet.id} 
+            wallet={wallet} 
+            onUpdate={loadWallets}
+          />
         ))}
       </div>
 

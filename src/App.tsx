@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import WalletView from './pages/WalletView';
 import { AuthProvider } from './context/AuthContext';
 
@@ -16,6 +17,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/wallets/:id" element={<WalletView />} />
             </Routes>
           </main>

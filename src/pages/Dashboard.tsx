@@ -30,19 +30,66 @@ export default function Dashboard() {
 
   if (!user) {
     return (
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-sky-200">Please log in to view your wallets</h2>
+      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+        <h1 className="text-5xl font-bold text-secondary-900 dark:text-secondary-50 mb-6">
+          Smart Wallet Management
+        </h1>
+        <p className="text-xl text-secondary-600 dark:text-secondary-300 mb-12">
+          Take control of your finances with our powerful wallet tracking platform
+        </p>
+        
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="p-8 bg-white dark:bg-secondary-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-semibold text-secondary-900 dark:text-secondary-50 mb-3">
+              Track Multiple Wallets
+            </h3>
+            <p className="text-secondary-600 dark:text-secondary-300">
+              Manage all your wallets in one place with real-time updates and insights
+            </p>
+          </div>
+          <div className="p-8 bg-white dark:bg-secondary-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-semibold text-secondary-900 dark:text-secondary-50 mb-3">
+              Secure & Private
+            </h3>
+            <p className="text-secondary-600 dark:text-secondary-300">
+              Your financial data is encrypted and protected with industry-standard security
+            </p>
+          </div>
+          <div className="p-8 bg-white dark:bg-secondary-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-semibold text-secondary-900 dark:text-secondary-50 mb-3">
+              Smart Analytics
+            </h3>
+            <p className="text-secondary-600 dark:text-secondary-300">
+              Get insights into your spending patterns and financial health
+            </p>
+          </div>
+        </div>
+
+        <div className="flex justify-center gap-4">
+          <a
+            href="/register"
+            className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-colors"
+          >
+            Get Started
+          </a>
+          <a
+            href="/login"
+            className="bg-secondary-100 dark:bg-secondary-700 text-secondary-900 dark:text-secondary-50 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-secondary-200 dark:hover:bg-secondary-600 transition-colors"
+          >
+            Sign In
+          </a>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-sky-200">My Wallets</h1>
+        <h1 className="text-3xl font-bold text-secondary-900 dark:text-secondary-50">My Wallets</h1>
         <button 
           onClick={() => setShowForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700"
+          className="bg-primary-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-700 transition-colors"
         >
           <Plus size={20} />
           New Wallet

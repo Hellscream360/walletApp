@@ -1,31 +1,31 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Wallet, LogOut } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import toast from 'react-hot-toast';
-import ThemeToggle from './ThemeToggle';
-import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { Link, useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
+import ThemeToggle from "./ThemeToggle";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 export default function Navbar() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState<string>('');
-  const [avatarUrl, setAvatarUrl] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>("");
+  const [avatarUrl, setAvatarUrl] = useState<string>("");
 
   useEffect(() => {
     if (user?.id) {
       // Récupérer le prénom depuis la table des profils
       const fetchProfile = async () => {
         const { data, error } = await supabase
-          .from('profiles')
-          .select('first_name')
-          .eq('id', user.id)
+          .from("profiles")
+          .select("first_name")
+          .eq("id", user.id)
           .single();
 
         if (error) {
-          console.error('Error fetching profile:', error);
+          console.error("Error fetching profile:", error);
           // Fallback sur l'email si erreur
-          const emailName = user.email?.split('@')[0] || '';
+          const emailName = user.email?.split("@")[0] || "";
           setFirstName(emailName.charAt(0).toUpperCase() + emailName.slice(1));
         } else if (data) {
           setFirstName(data.first_name);
@@ -33,7 +33,11 @@ export default function Navbar() {
 
         // Générer l'avatar basé sur l'email
         const seed = user.email;
-        setAvatarUrl(`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed || '')}`);
+        setAvatarUrl(
+          `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
+            seed || ""
+          )}`
+        );
       };
 
       fetchProfile();
@@ -43,10 +47,10 @@ export default function Navbar() {
   const handleSignOut = async () => {
     try {
       await signOut();
-      navigate('/login');
-      toast.success('Signed out successfully');
+      navigate("/login");
+      toast.success("Signed out successfully");
     } catch (error) {
-      toast.error('Error signing out');
+      toast.error("Error signing out");
     }
   };
 
@@ -55,8 +59,14 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <Wallet className="h-6 w-6 text-blue-600 dark:text-sky-200" />
-            <span className="hidden sm:block text-xl font-bold text-gray-900 dark:text-sky-100">WalletVision</span>
+            <div
+              className="flex items-center space-x-2 cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                WalletVision
+              </span>
+            </div>
           </Link>
 
           <div className="flex items-center space-x-4">
@@ -73,7 +83,9 @@ export default function Navbar() {
                       alt="Profile"
                       className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800"
                     />
-                    <span className="text-sm font-medium text-gray-700 dark:text-sky-200">{firstName}</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-sky-200">
+                      {firstName}
+                    </span>
                   </Link>
                 </div>
                 <button

@@ -1,21 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import LandingNav from '../components/LandingNav';
-import ParticlesBackground from '../components/ParticlesBackground';
+import { useNavigate } from "react-router-dom";
+import LandingNav from "../components/LandingNav";
+import WaveBackground from "../components/WaveBackground";
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white overflow-hidden">
-      {/* Particles Background */}
       <div className="absolute inset-0 z-0">
-        <ParticlesBackground />
+        <WaveBackground />
       </div>
 
-      {/* Content */}
       <div className="relative z-10">
-        {/* Header with Logo and Navigation */}
+        {/* Header */}
         <LandingNav />
 
         {/* Hero Section */}

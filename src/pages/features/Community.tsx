@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
+import GlowingCard from "../../components/GlowingCard";
 
 const Community: React.FC = () => {
   const navigate = useNavigate();
@@ -86,7 +87,10 @@ const Community: React.FC = () => {
         <div className="container mx-auto px-4 py-16">
           <h2 className="text-3xl font-bold text-center mb-12">Fonctionnalités Communautaires</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
               <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-comments text-blue-500 text-2xl"></i>
               </div>
@@ -95,27 +99,35 @@ const Community: React.FC = () => {
                 Échangez en temps réel avec d'autres investisseurs sur les opportunités
                 du marché et les stratégies d'investissement.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(16, 185, 129, 0.5)" // Emerald glow
+            >
               <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-trophy text-emerald-500 text-2xl"></i>
               </div>
               <h3 className="text-xl font-bold mb-3">Challenges et Concours</h3>
               <p className="text-gray-400">
-                Participez à des défis d'investissement et des concours pour tester
-                vos compétences et gagner des récompenses.
+                Participez à des défis d'investissement et des concours pour
+                tester vos compétences et gagner des récompenses.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(168, 85, 247, 0.5)" // Purple glow
+            >
               <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-graduation-cap text-purple-500 text-2xl"></i>
               </div>
               <h3 className="text-xl font-bold mb-3">Mentorat</h3>
               <p className="text-gray-400">
-                Connectez-vous avec des investisseurs expérimentés pour apprendre
-                et progresser plus rapidement.
+                Connectez-vous avec des investisseurs expérimentés pour
+                apprendre et progresser plus rapidement.
               </p>
-            </div>
+            </GlowingCard>
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
+import GlowingCard from "../../components/GlowingCard";
 
 const Reporting: React.FC = () => {
   const navigate = useNavigate();
@@ -86,7 +87,10 @@ const Reporting: React.FC = () => {
         <div className="container mx-auto px-4 py-16">
           <h2 className="text-3xl font-bold text-center mb-12">Types de Rapports</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
               <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-chart-pie text-blue-500 text-2xl"></i>
               </div>
@@ -95,8 +99,12 @@ const Reporting: React.FC = () => {
                 Analysez vos rendements, la volatilité et les métriques de risque
                 sur différentes périodes.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(16, 185, 129, 0.5)" // Emerald glow
+            >
               <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-balance-scale text-emerald-500 text-2xl"></i>
               </div>
@@ -105,8 +113,12 @@ const Reporting: React.FC = () => {
                 Visualisez la répartition de vos actifs et l'évolution de votre
                 allocation dans le temps.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(168, 85, 247, 0.5)" // Purple glow
+            >
               <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-coins text-purple-500 text-2xl"></i>
               </div>
@@ -115,7 +127,7 @@ const Reporting: React.FC = () => {
                 Suivez vos transactions, les coûts associés et l'impact sur
                 votre performance globale.
               </p>
-            </div>
+            </GlowingCard>
           </div>
         </div>
 

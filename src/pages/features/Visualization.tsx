@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
+import GlowingCard from "../../components/GlowingCard";
 
 const Visualization: React.FC = () => {
   const navigate = useNavigate();
@@ -79,6 +80,56 @@ const Visualization: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Visualization Types */}
+        <div className="container mx-auto px-4 py-16">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Types de Visualisations
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-chart-line text-blue-500 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Graphiques Avancés</h3>
+              <p className="text-gray-400">
+                Visualisez vos données avec des graphiques interactifs et
+                personnalisables pour une meilleure analyse.
+              </p>
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(16, 185, 129, 0.5)" // Emerald glow
+            >
+              <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-project-diagram text-emerald-500 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Réseaux et Relations</h3>
+              <p className="text-gray-400">
+                Découvrez les connexions et corrélations entre vos
+                investissements et le marché global.
+              </p>
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(168, 85, 247, 0.5)" // Purple glow
+            >
+              <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-map text-purple-500 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Cartographie</h3>
+              <p className="text-gray-400">
+                Explorez la répartition géographique de vos investissements
+                et identifiez les opportunités régionales.
+              </p>
+            </GlowingCard>
           </div>
         </div>
 

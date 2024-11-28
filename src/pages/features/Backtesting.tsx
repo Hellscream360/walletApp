@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
+import GlowingCard from "../../components/GlowingCard";
 
 const Backtesting: React.FC = () => {
   const navigate = useNavigate();
@@ -82,40 +83,101 @@ const Backtesting: React.FC = () => {
           </div>
         </div>
 
+        {/* Features Grid */}
+        <div className="container mx-auto px-4 py-16">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Fonctionnalités de Backtesting
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-chart-bar text-blue-500 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Performance Historique</h3>
+              <p className="text-gray-400">
+                Testez vos stratégies sur des années de données historiques pour
+                comprendre leur comportement dans différentes conditions de marché.
+              </p>
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-cogs text-blue-500 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Optimisation des Paramètres</h3>
+              <p className="text-gray-400">
+                Affinez vos paramètres de trading grâce à nos outils d'optimisation
+                qui testent automatiquement différentes configurations.
+              </p>
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-chart-pie text-blue-500 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Analyse de Risque</h3>
+              <p className="text-gray-400">
+                Évaluez en détail les risques de votre stratégie avec des métriques
+                avancées comme le drawdown maximum et le ratio de Sharpe.
+              </p>
+            </GlowingCard>
+          </div>
+        </div>
+
         {/* Use Cases */}
         <div className="container mx-auto px-4 py-16">
           <h2 className="text-3xl font-bold text-center mb-12">Cas d'Utilisation</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
               <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
-                <i className="fas fa-balance-scale text-blue-500 text-2xl"></i>
+                <i className="fas fa-robot text-blue-500 text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold mb-3">Rééquilibrage de Portefeuille</h3>
+              <h3 className="text-xl font-bold mb-3">Stratégies Algorithmiques</h3>
               <p className="text-gray-400">
-                Testez différentes stratégies de rééquilibrage pour optimiser vos performances
-                tout en minimisant les coûts de transaction.
+                Validez vos algorithmes de trading avant de les déployer sur le marché
+                réel pour éviter les mauvaises surprises.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
-              <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
-                <i className="fas fa-chart-pie text-emerald-500 text-2xl"></i>
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-brain text-blue-500 text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold mb-3">Allocation d'Actifs</h3>
+              <h3 className="text-xl font-bold mb-3">Machine Learning</h3>
               <p className="text-gray-400">
-                Évaluez différentes allocations d'actifs pour trouver le meilleur
-                compromis entre rendement et risque.
+                Entraînez et testez vos modèles de ML sur des données historiques
+                pour améliorer leur précision.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
-              <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
-                <i className="fas fa-robot text-purple-500 text-2xl"></i>
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i className="fas fa-users text-blue-500 text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold mb-3">Trading Algorithmique</h3>
+              <h3 className="text-xl font-bold mb-3">Trading Social</h3>
               <p className="text-gray-400">
-                Développez et testez des stratégies de trading automatisées
-                avant de les déployer sur le marché réel.
+                Évaluez les performances historiques des traders que vous suivez
+                avant de copier leurs stratégies.
               </p>
-            </div>
+            </GlowingCard>
           </div>
         </div>
 

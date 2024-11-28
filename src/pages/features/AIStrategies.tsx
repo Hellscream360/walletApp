@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
+import GlowingCard from "../../components/GlowingCard";
 
 const AIStrategies: React.FC = () => {
   const navigate = useNavigate();
@@ -93,7 +94,10 @@ const AIStrategies: React.FC = () => {
             Capacités de l'IA
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+            >
               <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-chart-line text-blue-500 text-2xl"></i>
               </div>
@@ -103,8 +107,12 @@ const AIStrategies: React.FC = () => {
                 pour identifier les meilleures opportunités d'entrée et de
                 sortie.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(16, 185, 129, 0.5)" // Emerald glow
+            >
               <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-newspaper text-emerald-500 text-2xl"></i>
               </div>
@@ -113,8 +121,12 @@ const AIStrategies: React.FC = () => {
                 Analyse des actualités et des réseaux sociaux pour évaluer le
                 sentiment du marché et anticiper les mouvements.
               </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl">
+            </GlowingCard>
+
+            <GlowingCard 
+              className="bg-gray-800/50 p-6 rounded-xl"
+              glowColor="rgba(168, 85, 247, 0.5)" // Purple glow
+            >
               <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
                 <i className="fas fa-shield-alt text-purple-500 text-2xl"></i>
               </div>
@@ -123,7 +135,7 @@ const AIStrategies: React.FC = () => {
                 Surveillance continue des risques et ajustement automatique des
                 positions pour protéger votre capital.
               </p>
-            </div>
+            </GlowingCard>
           </div>
         </div>
 

@@ -3,11 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Share2, Edit2, ChevronDown, ChevronUp, Facebook } from 'lucide-react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import toast from 'react-hot-toast';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../components/ui/use-toast';
 import type { Wallet } from '../types';
 import WalletEdit from '../components/WalletEdit';
+import { famousInvestorsWallets } from '../components/FamousInvestors';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -37,32 +38,51 @@ const CrossIcon = () => (
 );
 
 export default function WalletView() {
-  const { id } = useParams();
-  const { user } = useAuth();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [wallet, setWallet] = useState<Wallet | null>(null);
-  const [showEditForm, setShowEditForm] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
+    if (!id) return;
+
+    const loadWallet = async () => {
+      // Vérifier d'abord si c'est un portefeuille d'investisseur célèbre
+      const famousWallet = famousInvestorsWallets.find(w => w.id === id);
+      if (famousWallet) {
+        setWallet(famousWallet);
+        return;
+      }
+
+      // Si ce n'est pas un portefeuille célèbre, charger depuis la base de données
+      const { data, error } = await supabase
+        .from('wallets')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) {
+        console.error('Error loading wallet:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load wallet",
+          variant: "destructive",
+        });
+        navigate('/dashboard');
+        return;
+      }
+
+      if (data) {
+        setWallet(data);
+      }
+    };
+
     loadWallet();
-  }, [id]);
-
-  const loadWallet = async () => {
-    const { data, error } = await supabase
-      .from('wallets')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (error) {
-      toast.error('Error loading wallet');
-      navigate('/');
-      return;
-    }
-
-    setWallet(data);
-  };
+  }, [id, navigate]);
 
   const handleShare = async (platform?: 'x' | 'facebook') => {
     const shareUrl = window.location.href;
@@ -92,10 +112,17 @@ export default function WalletView() {
         await navigator.share(shareData);
       } else {
         await navigator.clipboard.writeText(shareUrl);
-        toast.success('Link copied to clipboard!');
+        toast({
+          title: "Success",
+          description: "Link copied to clipboard!",
+        });
       }
     } catch (error) {
-      toast.error('Error sharing wallet');
+      toast({
+        title: "Error",
+        description: "Error sharing wallet",
+        variant: "destructive",
+      });
     }
   };
 
@@ -108,16 +135,36 @@ export default function WalletView() {
       .eq('id', id);
 
     if (error) {
-      toast.error('Error deleting wallet');
+      toast({
+        title: "Error",
+        description: "Error deleting wallet",
+        variant: "destructive",
+      });
       return;
     }
 
-    toast.success('Wallet deleted successfully');
-    navigate('/');
+    toast({
+      title: "Success",
+      description: "Wallet deleted successfully",
+    });
+    navigate('/dashboard');
+  };
+
+  const handleEdit = () => {
+    // Ne pas permettre l'édition des portefeuilles d'investisseurs célèbres
+    if (wallet?.userId === 'famous-investors') {
+      toast({
+        title: "Error",
+        description: "Les portefeuilles des investisseurs célèbres ne peuvent pas être modifiés",
+        variant: "destructive",
+      });
+      return;
+    }
+    setShowEditModal(true);
   };
 
   const toggleCategory = (categoryName: string) => {
-    setExpandedCategories(prev => 
+    setExpandedCategories(prev =>
       prev.includes(categoryName)
         ? prev.filter(name => name !== categoryName)
         : [...prev, categoryName]
@@ -208,21 +255,21 @@ export default function WalletView() {
           <div className="flex gap-2 items-center">
             <button
               onClick={() => handleShare('x')}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
               title="Share on X"
             >
               <XIcon />
             </button>
             <button
               onClick={() => handleShare('facebook')}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
               title="Share on Facebook"
             >
               <Facebook className="w-5 h-5" />
             </button>
             <button
               onClick={() => handleShare()}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
               title="Share"
             >
               <Share2 className="w-5 h-5" />
@@ -230,15 +277,15 @@ export default function WalletView() {
             {isOwner && (
               <>
                 <button
-                  onClick={() => setShowEditForm(true)}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                  onClick={handleEdit}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
                   title="Edit wallet"
                 >
                   <Edit2 className="w-5 h-5" />
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
                   title="Delete wallet"
                 >
                   <CrossIcon />
@@ -248,12 +295,12 @@ export default function WalletView() {
           </div>
         </div>
 
-        {showEditForm && (
+        {showEditModal && (
           <WalletEdit
             wallet={wallet}
-            onClose={() => setShowEditForm(false)}
+            onClose={() => setShowEditModal(false)}
             onSuccess={() => {
-              setShowEditForm(false);
+              setShowEditModal(false);
               loadWallet();
             }}
           />
@@ -262,7 +309,7 @@ export default function WalletView() {
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 items-start">
           <div className="lg:col-span-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6">
             <div className="w-full h-[400px]">
-              <Doughnut 
+              <Doughnut
                 data={mainChartData}
                 options={mainChartOptions}
               />
@@ -279,7 +326,7 @@ export default function WalletView() {
                 >
                   <button
                     onClick={() => toggleCategory(category.name)}
-                    className="w-full p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                    className="w-full p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-gray-800/50 transition-colors"
                   >
                     <div className="flex items-center gap-2">
                       <div
@@ -305,7 +352,7 @@ export default function WalletView() {
                       )}
                     </div>
                   </button>
-                  
+
                   {category.subCategories && category.subCategories.length > 0 && isCategoryExpanded(category.name) && (
                     <div className="p-4 pt-2 border-t border-slate-100 dark:border-slate-700">
                       <div className="grid grid-cols-2 gap-4">

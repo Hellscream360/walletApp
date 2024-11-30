@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
-import toast from 'react-hot-toast';
+import { useToast } from '../components/ui/use-toast';
 
 interface ProfileData {
   first_name: string;
@@ -12,6 +12,7 @@ interface ProfileData {
 
 export default function Profile() {
   const { user } = useAuth();
+  const { toast } = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -44,7 +45,11 @@ export default function Profile() {
         });
       } catch (error) {
         console.error('Error loading profile:', error);
-        toast.error('Failed to load profile');
+        toast({
+          title: "Error",
+          description: "Failed to load profile",
+          variant: "destructive",
+        });
       } finally {
         setIsLoading(false);
       }
@@ -69,7 +74,11 @@ export default function Profile() {
     try {
       // Vérifier que le prénom n'est pas vide
       if (!profileData.first_name.trim()) {
-        toast.error('First name is required');
+        toast({
+          title: "Error",
+          description: "First name is required",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -83,10 +92,17 @@ export default function Profile() {
 
       if (error) throw error;
 
-      toast.success('Profile updated successfully');
+      toast({
+        title: "Success",
+        description: "Profile updated successfully",
+      });
     } catch (error) {
       console.error('Error updating profile:', error);
-      toast.error('Failed to update profile');
+      toast({
+        title: "Error",
+        description: "Failed to update profile",
+        variant: "destructive",
+      });
     } finally {
       setIsSaving(false);
     }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { X, Plus, ChevronDown, ChevronUp } from 'lucide-react';
-import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { useToast } from './ui/use-toast';
 import type { Wallet, WalletCategory, SubCategory } from '../types';
 
 interface WalletEditProps {
@@ -23,9 +23,11 @@ const SUB_COLORS = [
 
 export default function WalletEdit({ wallet, onClose, onSuccess }: WalletEditProps) {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [name, setName] = useState(wallet.name);
   const [categories, setCategories] = useState<WalletCategory[]>(
     wallet.categories.map(cat => ({
+
       ...cat,
       subCategories: cat.subCategories || []
     }))
@@ -42,7 +44,11 @@ export default function WalletEdit({ wallet, onClose, onSuccess }: WalletEditPro
 
   const addCategory = () => {
     if (categories.length >= 10) {
-      toast.error('Maximum 10 categories allowed');
+      toast({
+        title: "Error",
+        description: "Maximum 10 categories allowed",
+        variant: "destructive",
+      });
       return;
     }
     setCategories([
@@ -66,7 +72,11 @@ export default function WalletEdit({ wallet, onClose, onSuccess }: WalletEditPro
   const addSubCategory = (categoryIndex: number) => {
     const category = categories[categoryIndex];
     if (category.subCategories && category.subCategories.length >= 10) {
-      toast.error('Maximum 10 sub-categories allowed');
+      toast({
+        title: "Error",
+        description: "Maximum 10 sub-categories allowed",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -122,16 +132,24 @@ export default function WalletEdit({ wallet, onClose, onSuccess }: WalletEditPro
 
   const validatePercentages = () => {
     const totalMain = categories.reduce((sum, cat) => sum + cat.percentage, 0);
-    if (Math.round(totalMain) !== 100) {
-      toast.error('Main category percentages must add up to 100%');
+    if (totalMain !== 100) {
+      toast({
+        title: "Error",
+        description: "Main category percentages must add up to 100%",
+        variant: "destructive",
+      });
       return false;
     }
 
     for (const category of categories) {
       if (category.subCategories && category.subCategories.length > 0) {
         const totalSub = category.subCategories.reduce((sum, sub) => sum + sub.percentage, 0);
-        if (Math.round(totalSub) !== 100) {
-          toast.error(`Sub-categories for ${category.name} must add up to 100%`);
+        if (totalSub !== 100) {
+          toast({
+            title: "Error",
+            description: `Sub-categories for ${category.name} must add up to 100%`,
+            variant: "destructive",
+          });
           return false;
         }
       }
@@ -158,12 +176,18 @@ export default function WalletEdit({ wallet, onClose, onSuccess }: WalletEditPro
 
       if (error) throw error;
 
-      toast.success('Wallet updated successfully');
+      toast({
+        title: "Success",
+        description: "Wallet updated successfully",
+      });
       onSuccess();
       onClose();
     } catch (error) {
-      console.error('Error updating wallet:', error);
-      toast.error('Error updating wallet');
+      toast({
+        title: "Error",
+        description: "Error updating wallet",
+        variant: "destructive",
+      });
     }
   };
 

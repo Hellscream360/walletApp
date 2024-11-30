@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { X, Plus, ChevronDown, ChevronUp } from 'lucide-react';
-import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import type { WalletCategory, SubCategory } from '../types';
+import { useToast } from './ui/use-toast';
 
 interface WalletFormProps {
   onClose: () => void;
@@ -22,6 +22,7 @@ const SUB_COLORS = [
 
 export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [name, setName] = useState('');
   const [categories, setCategories] = useState<WalletCategory[]>([
     { name: '', percentage: 0, color: DEFAULT_COLORS[0], subCategories: [] }
@@ -38,7 +39,11 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
 
   const addCategory = () => {
     if (categories.length >= 10) {
-      toast.error('Maximum 10 categories allowed');
+      toast({
+        title: "Error",
+        description: "Maximum 10 categories allowed",
+        variant: "destructive",
+      });
       return;
     }
     setCategories([
@@ -61,7 +66,11 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
   const addSubCategory = (categoryIndex: number) => {
     const category = categories[categoryIndex];
     if (!category.subCategories || category.subCategories.length >= 10) {
-      toast.error('Maximum 10 sub-categories allowed');
+      toast({
+        title: "Error",
+        description: "Maximum 10 sub-categories allowed",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -112,7 +121,11 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
   const validatePercentages = () => {
     const totalMain = categories.reduce((sum, cat) => sum + cat.percentage, 0);
     if (totalMain !== 100) {
-      toast.error('Main category percentages must add up to 100%');
+      toast({
+        title: "Error",
+        description: "Main category percentages must add up to 100%",
+        variant: "destructive",
+      });
       return false;
     }
 
@@ -120,7 +133,11 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
       if (category.subCategories && category.subCategories.length > 0) {
         const totalSub = category.subCategories.reduce((sum, sub) => sum + sub.percentage, 0);
         if (totalSub !== 100) {
-          toast.error(`Sub-categories for ${category.name} must add up to 100%`);
+          toast({
+            title: "Error",
+            description: `Sub-categories for ${category.name} must add up to 100%`,
+            variant: "destructive",
+          });
           return false;
         }
       }
@@ -145,11 +162,18 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
 
       if (error) throw error;
 
-      toast.success('Wallet created successfully');
+      toast({
+        title: "Success",
+        description: "Wallet created successfully",
+      });
       onSuccess();
       onClose();
     } catch (error) {
-      toast.error('Error creating wallet');
+      toast({
+        title: "Error",
+        description: "Error creating wallet",
+        variant: "destructive",
+      });
     }
   };
 

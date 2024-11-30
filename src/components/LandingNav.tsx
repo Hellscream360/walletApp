@@ -45,6 +45,9 @@ const LandingNav: React.FC = () => {
               <button onClick={() => navigate('/features/ai-strategies')} className="text-gray-300 hover:text-white transition-colors">
                 IA & Stratégies
               </button>
+              <button onClick={() => navigate('/features/reporting')} className="text-gray-300 hover:text-white transition-colors">
+                Reporting
+              </button>
               <button onClick={() => navigate('/pricing')} className="text-gray-300 hover:text-white transition-colors">
                 Tarifs
               </button>
@@ -83,6 +86,9 @@ const LandingNav: React.FC = () => {
               </button>
               <button onClick={() => navigate('/features/ai-strategies')} className="text-gray-300 hover:text-white transition-colors">
                 IA & Stratégies
+              </button>
+              <button onClick={() => navigate('/features/reporting')} className="text-gray-300 hover:text-white transition-colors">
+                Reporting
               </button>
               <button onClick={() => navigate('/pricing')} className="text-gray-300 hover:text-white transition-colors">
                 Tarifs

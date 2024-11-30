@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import toast from "react-hot-toast";
+import { useToast } from "./ui/use-toast";
 import ThemeToggle from "./ThemeToggle";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
@@ -9,6 +9,7 @@ import { supabase } from "../lib/supabase";
 export default function Navbar() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [firstName, setFirstName] = useState<string>("");
   const [avatarUrl, setAvatarUrl] = useState<string>("");
 
@@ -47,10 +48,17 @@ export default function Navbar() {
   const handleSignOut = async () => {
     try {
       await signOut();
+      toast({
+        title: "Success",
+        description: "Successfully signed out",
+      });
       navigate("/login");
-      toast.success("Signed out successfully");
     } catch (error) {
-      toast.error("Error signing out");
+      toast({
+        title: "Error",
+        description: "Error signing out",
+        variant: "destructive",
+      });
     }
   };
 

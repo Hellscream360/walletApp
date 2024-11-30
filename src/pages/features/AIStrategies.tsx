@@ -18,10 +18,10 @@ const AIStrategies: React.FC = () => {
         <LandingNav />
 
         {/* Hero Section */}
-        <div className="container mx-auto px-4 py-20">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-              Stratégies d'Investissement IA
+        <div className="container mx-auto px-4 pt-32 pb-20">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-6xl font-bold mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+              Stratégies d'IA Avancées
             </h1>
             <p className="text-xl text-gray-300 mb-12">
               Exploitez la puissance de l'intelligence artificielle pour

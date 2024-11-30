@@ -19,20 +19,19 @@ const Pricing: React.FC = () => {
         {/* Header */}
         <LandingNav />
 
-        {/* Main Content */}
-        <div className="flex-grow container mx-auto px-4 py-20">
-          {/* Title Section */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-              Tarifs Simples et Transparents
-            </h1>
-            <p className="text-xl text-gray-300">
-              Choisissez le plan qui correspond le mieux à vos besoins
-            </p>
-          </div>
+        {/* Hero Section */}
+        <div className="container mx-auto px-6 pt-32 pb-20 text-center">
+          <h1 className="text-5xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+            Tarifs Simples et Transparents
+          </h1>
+          <p className="text-xl text-gray-300 mb-16 max-w-3xl mx-auto">
+            Choisissez le plan qui correspond le mieux à vos besoins
+          </p>
+        </div>
 
-          {/* Pricing Cards */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {/* Pricing Grid */}
+        <div className="container mx-auto px-6 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {/* Free Plan */}
             <GlowingCard 
               className="bg-gray-800/50 p-8 rounded-xl backdrop-blur-sm flex flex-col"
@@ -160,8 +159,29 @@ const Pricing: React.FC = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <Footer />
+        {/* FAQ Section */}
+        <div className="container mx-auto px-6 py-20">
+          <h2 className="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+            Questions Fréquentes
+          </h2>
+        </div>
+
+        {/* CTA Section */}
+        <div className="container mx-auto px-6 py-20">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+              Prêt à Commencer ?
+            </h2>
+            <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+              Join thousands of investors who are already using our platform to manage their portfolios.
+            </p>
+          </div>
+        </div>
+
+        {/* Footer with more padding */}
+        <div className="mt-20">
+          <Footer />
+        </div>
       </div>
     </div>
   );

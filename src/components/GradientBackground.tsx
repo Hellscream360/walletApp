@@ -8,11 +8,11 @@ const GradientBackground: React.FC = () => {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 40% 70%, rgba(96, 165, 250, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at 60% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at 90% 60%, rgba(96, 165, 250, 0.08) 0%, transparent 50%)
+              radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.08) 0%, transparent 30%),
+              radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 30%),
+              radial-gradient(circle at 40% 70%, rgba(96, 165, 250, 0.08) 0%, transparent 20%),
+              radial-gradient(circle at 60% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 20%),
+              radial-gradient(circle at 90% 60%, rgba(96, 165, 250, 0.08) 0%, transparent 30%)
             `
           }}
         />

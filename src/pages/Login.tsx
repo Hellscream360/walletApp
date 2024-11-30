@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { supabase } from "../lib/supabase";
-import WaveBackground from "../components/WaveBackground";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 import GradientBackground from "../components/GradientBackground";
 import LandingNav from "../components/LandingNav";
-import Footer from "../components/Footer";
+import WaveBackground from "../components/WaveBackground";
+import { supabase } from "../lib/supabase";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -48,7 +48,9 @@ export default function Login() {
         <div className="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full bg-gray-800/50 backdrop-blur-sm p-8 rounded-xl shadow-2xl">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-2">Connexion</h2>
+              <h2 className="text-3xl font-bold text-center mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                Connexion
+              </h2>
               <p className="text-gray-400">Accédez à votre tableau de bord</p>
             </div>
 
@@ -60,7 +62,10 @@ export default function Login() {
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2"
+                >
                   Email
                 </label>
                 <input
@@ -74,7 +79,10 @@ export default function Login() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium mb-2"
+                >
                   Mot de passe
                 </label>
                 <input
@@ -99,7 +107,10 @@ export default function Login() {
 
               <div className="text-center text-sm">
                 <span className="text-gray-400">Pas encore de compte ?</span>{" "}
-                <Link to="/signup" className="text-blue-400 hover:text-blue-300">
+                <Link
+                  to="/signup"
+                  className="text-blue-400 hover:text-blue-300"
+                >
                   Créer un compte
                 </Link>
               </div>

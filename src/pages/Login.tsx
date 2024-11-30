@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { useToast } from "../components/ui/use-toast";
 import WaveBackground from "../components/WaveBackground";
 import LandingNav from "../components/LandingNav";
+import Footer from "../components/Footer";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -118,6 +119,9 @@ export default function Login() {
             </Link>
           </div>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

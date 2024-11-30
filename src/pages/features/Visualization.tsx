@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
 import DemoChart from "../../components/DemoChart";
+import Footer from "../../components/Footer";
 
 const Visualization: React.FC = () => {
   const navigate = useNavigate();
@@ -98,6 +99,9 @@ const Visualization: React.FC = () => {
             Commencer Gratuitement
           </button>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

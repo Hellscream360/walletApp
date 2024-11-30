@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import WaveBackground from "../components/WaveBackground";
 import LandingNav from "../components/LandingNav";
+import Footer from "../components/Footer";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -158,6 +159,9 @@ const Signup = () => {
             </Link>
           </div>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

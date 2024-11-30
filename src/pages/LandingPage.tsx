@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import LandingNav from "../components/LandingNav";
 import WaveBackground from "../components/WaveBackground";
 import GlowingCard from "../components/GlowingCard";
+import Footer from "../components/Footer";
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -171,104 +172,82 @@ const LandingPage: React.FC = () => {
         </div>
 
         {/* Pricing Section */}
-        <div className="container mx-auto px-4 py-16">
-          <h2 className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-            Choisissez votre Plan
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Basic Plan */}
-            <div className="bg-gray-800/50 p-8 rounded-xl hover:bg-gray-700/50 transition-all flex flex-col">
-              <div>
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-4">Gratuit</h3>
-                  <div className="text-4xl font-bold mb-4">0€<span className="text-lg font-normal">/mois</span></div>
-                  <div className="text-gray-400 mb-8">Pour démarrer</div>
-                </div>
+        <div className="py-24 bg-gradient-to-b from-gray-900/50 to-gray-800/50 backdrop-blur-sm relative">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                Tarifs Simples et Transparents
+              </h2>
+              <p className="text-xl text-gray-300">
+                Choisissez le plan qui correspond le mieux à vos besoins
+              </p>
+            </div>
 
-                <ul className="space-y-4 mb-8">
+            {/* Pricing Cards */}
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {/* Free Plan */}
+              <GlowingCard 
+                className="bg-gray-800/50 p-8 rounded-xl backdrop-blur-sm flex flex-col"
+                glowColor="rgba(59, 130, 246, 0.5)" // Blue glow
+              >
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold mb-4">Gratuit</h2>
+                  <div className="text-4xl font-bold mb-2">0€</div>
+                  <div className="text-gray-400">Pour toujours</div>
+                </div>
+                <ul className="space-y-4 mb-8 flex-grow">
                   <li className="flex items-center">
                     <i className="fas fa-check text-emerald-500 mr-2"></i>
                     <span>1 portefeuille</span>
                   </li>
                   <li className="flex items-center">
                     <i className="fas fa-check text-emerald-500 mr-2"></i>
-                    <span>Visualisation de base</span>
+                    <span>Visualisations de base</span>
                   </li>
                   <li className="flex items-center">
                     <i className="fas fa-check text-emerald-500 mr-2"></i>
-                    <span>Backtesting limité</span>
+                    <span>Historique 30 jours</span>
+                  </li>
+                  <li className="flex items-center">
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
+                    <span>Support communautaire</span>
                   </li>
                 </ul>
-              </div>
-              <div className="mt-auto">
-                <button 
+                <button
                   onClick={() => navigate('/signup')}
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition-colors mt-auto"
                 >
                   Commencer Gratuitement
                 </button>
-              </div>
-            </div>
+              </GlowingCard>
 
-            {/* Pro Plan */}
-            <div className="bg-gradient-to-b from-blue-600 to-blue-800 p-8 rounded-xl transform hover:scale-105 transition-all flex flex-col">
-              <div>
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-4">Pro</h3>
-                  <div className="text-4xl font-bold mb-4">19€<span className="text-lg font-normal">/mois</span></div>
-                  <div className="text-gray-200 mb-8">Pour les investisseurs actifs</div>
+              {/* Pro Plan */}
+              <GlowingCard 
+                className="bg-gray-800/50 p-8 rounded-xl backdrop-blur-sm transform scale-105 flex flex-col border-2 border-emerald-500/30 relative before:absolute before:-z-10 before:inset-0 before:rounded-xl before:border before:border-emerald-500/50 before:p-[2px] before:bg-gradient-to-b before:from-emerald-500/30 before:to-emerald-500/0"
+                glowColor="rgba(16, 185, 129, 0.3)" // Emerald glow, plus subtil
+              >
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                  <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm">
+                    Populaire
+                  </span>
                 </div>
-
-                <ul className="space-y-4 mb-8">
+                <div className="text-center mb-8 relative">
+                  <h2 className="text-2xl font-bold mb-4">Pro</h2>
+                  <div className="text-4xl font-bold mb-2">19€</div>
+                  <div className="text-gray-400">par mois</div>
+                </div>
+                <ul className="space-y-4 mb-8 flex-grow relative">
                   <li className="flex items-center">
-                    <i className="fas fa-check text-emerald-400 mr-2"></i>
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
                     <span>Portefeuilles illimités</span>
                   </li>
                   <li className="flex items-center">
-                    <i className="fas fa-check text-emerald-400 mr-2"></i>
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
                     <span>Visualisations avancées</span>
                   </li>
                   <li className="flex items-center">
-                    <i className="fas fa-check text-emerald-400 mr-2"></i>
-                    <span>Backtesting illimité</span>
-                  </li>
-                  <li className="flex items-center">
-                    <i className="fas fa-check text-emerald-400 mr-2"></i>
-                    <span>Suggestions IA personnalisées</span>
-                  </li>
-                  <li className="flex items-center">
-                    <i className="fas fa-check text-emerald-400 mr-2"></i>
-                    <span>Alertes en temps réel</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="mt-auto">
-                <button 
-                  onClick={() => navigate('/signup?plan=pro')}
-                  className="w-full bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition-all"
-                >
-                  Choisir Pro
-                </button>
-              </div>
-            </div>
-
-            {/* Enterprise Plan */}
-            <div className="bg-gray-800/50 p-8 rounded-xl hover:bg-gray-700/50 transition-all flex flex-col">
-              <div>
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-4">Enterprise</h3>
-                  <div className="text-4xl font-bold mb-4">49€<span className="text-lg font-normal">/mois</span></div>
-                  <div className="text-gray-400 mb-8">Pour les équipes</div>
-                </div>
-
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-center">
                     <i className="fas fa-check text-emerald-500 mr-2"></i>
-                    <span>Tout dans Pro</span>
-                  </li>
-                  <li className="flex items-center">
-                    <i className="fas fa-check text-emerald-500 mr-2"></i>
-                    <span>API personnalisée</span>
+                    <span>Historique illimité</span>
                   </li>
                   <li className="flex items-center">
                     <i className="fas fa-check text-emerald-500 mr-2"></i>
@@ -276,22 +255,60 @@ const LandingPage: React.FC = () => {
                   </li>
                   <li className="flex items-center">
                     <i className="fas fa-check text-emerald-500 mr-2"></i>
-                    <span>Rapports personnalisés</span>
+                    <span>Backtesting avancé</span>
                   </li>
                   <li className="flex items-center">
                     <i className="fas fa-check text-emerald-500 mr-2"></i>
-                    <span>Formation dédiée</span>
+                    <span>Suggestions IA</span>
                   </li>
                 </ul>
-              </div>
-              <div className="mt-auto">
-                <button 
+                <button
+                  onClick={() => navigate('/signup')}
+                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-lg transition-colors mt-auto relative"
+                >
+                  Commencer l'essai gratuit
+                </button>
+              </GlowingCard>
+
+              {/* Enterprise Plan */}
+              <GlowingCard 
+                className="bg-gray-800/50 p-8 rounded-xl backdrop-blur-sm flex flex-col"
+                glowColor="rgba(168, 85, 247, 0.5)" // Purple glow
+              >
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold mb-4">Entreprise</h2>
+                  <div className="text-4xl font-bold mb-2">Sur mesure</div>
+                  <div className="text-gray-400">Contactez-nous</div>
+                </div>
+                <ul className="space-y-4 mb-8 flex-grow">
+                  <li className="flex items-center">
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
+                    <span>Tout du plan Pro</span>
+                  </li>
+                  <li className="flex items-center">
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
+                    <span>API dédiée</span>
+                  </li>
+                  <li className="flex items-center">
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
+                    <span>Support dédié 24/7</span>
+                  </li>
+                  <li className="flex items-center">
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
+                    <span>Formation personnalisée</span>
+                  </li>
+                  <li className="flex items-center">
+                    <i className="fas fa-check text-emerald-500 mr-2"></i>
+                    <span>Déploiement sur site</span>
+                  </li>
+                </ul>
+                <button
                   onClick={() => navigate('/contact')}
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all"
+                  className="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 rounded-lg transition-colors mt-auto"
                 >
                   Contactez-nous
                 </button>
-              </div>
+              </GlowingCard>
             </div>
           </div>
         </div>
@@ -333,6 +350,9 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

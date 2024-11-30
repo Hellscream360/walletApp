@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
 import GlowingCard from "../../components/GlowingCard";
+import Footer from "../../components/Footer";
 
 const Backtesting: React.FC = () => {
   const navigate = useNavigate();
@@ -196,6 +197,9 @@ const Backtesting: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

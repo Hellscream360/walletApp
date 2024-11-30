@@ -118,7 +118,7 @@ export default function Dashboard() {
 
         <div className="flex justify-center gap-4">
           <a
-            href="/register"
+            href="/signup"
             className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-colors"
           >
             Get Started

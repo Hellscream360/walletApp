@@ -152,10 +152,10 @@ const LandingNav: React.FC = () => {
                 Connexion
               </button>
               <button
-                onClick={() => navigate('/register')}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity duration-200"
+                onClick={() => navigate('/signup')}
               >
-                Inscription
+                S'inscrire
               </button>
             </div>
           </div>
@@ -187,10 +187,10 @@ const LandingNav: React.FC = () => {
                 Connexion
               </button>
               <button
-                onClick={() => navigate('/register')}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity duration-200"
+                onClick={() => navigate('/signup')}
               >
-                Inscription
+                S'inscrire
               </button>
             </div>
           </div>

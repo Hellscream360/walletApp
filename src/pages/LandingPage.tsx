@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import LandingNav from "../components/LandingNav";
-import WaveBackground from "../components/WaveBackground";
 import GlowingCard from "../components/GlowingCard";
 import Footer from "../components/Footer";
+import GradientBackground from "../components/GradientBackground";
+import WaveBackground from "../components/WaveBackground";
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white overflow-hidden">
+      {/* Backgrounds */}
+      <GradientBackground />
       <div className="absolute inset-0 z-0">
         <WaveBackground />
       </div>

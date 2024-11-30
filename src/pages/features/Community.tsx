@@ -3,6 +3,7 @@ import LandingNav from "../../components/LandingNav";
 import WaveBackground from "../../components/WaveBackground";
 import GlowingCard from "../../components/GlowingCard";
 import Footer from "../../components/Footer";
+import GradientBackground from "../../components/GradientBackground";
 
 const Community: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Community: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <WaveBackground />
       </div>
-
+      <GradientBackground />
       <div className="relative z-10">
         {/* Header */}
         <LandingNav />

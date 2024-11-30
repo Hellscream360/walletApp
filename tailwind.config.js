@@ -103,6 +103,28 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
+      keyframes: {
+        blob1: {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '33%': { transform: 'translate(30%, -20%) scale(1.1)' },
+          '66%': { transform: 'translate(-20%, 20%) scale(0.9)' },
+        },
+        blob2: {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '33%': { transform: 'translate(-30%, 30%) scale(1.1)' },
+          '66%': { transform: 'translate(20%, -20%) scale(0.9)' },
+        },
+        blob3: {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '33%': { transform: 'translate(-20%, -30%) scale(1.1)' },
+          '66%': { transform: 'translate(30%, 20%) scale(0.9)' },
+        },
+      },
+      animation: {
+        'blob1': 'blob1 20s infinite',
+        'blob2': 'blob2 25s infinite',
+        'blob3': 'blob3 30s infinite',
+      },
     },
   },
   plugins: [],

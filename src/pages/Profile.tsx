@@ -34,7 +34,35 @@ export default function Profile() {
           .eq('id', user.id)
           .single();
 
-        if (error) throw error;
+        if (error) {
+          if (error.code === 'PGRST116') {
+            // Aucun profil trouvé, créons-en un
+            const now = new Date().toISOString();
+            const { error: insertError } = await supabase
+              .from('profiles')
+              .insert({
+                id: user.id,
+                first_name: user.user_metadata?.first_name || '',
+                email: user.email,
+                updated_at: now,
+                created_at: now
+              });
+
+            if (insertError) throw insertError;
+
+            // Charger le profil nouvellement créé
+            const { data: newData, error: newError } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', user.id)
+              .single();
+
+            if (newError) throw newError;
+            data = newData;
+          } else {
+            throw error;
+          }
+        }
 
         setProfileData({
           first_name: data?.first_name || '',

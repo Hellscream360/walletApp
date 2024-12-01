@@ -70,9 +70,29 @@ const Signup = () => {
 
       if (signUpError) throw signUpError;
 
+      // Créer le profil utilisateur
+      if (data.user) {
+        const now = new Date().toISOString();
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: data.user.id,
+            first_name: formData.firstName,
+            email: formData.email,
+            updated_at: now,
+            created_at: now
+          });
+
+        if (profileError) {
+          console.error('Error creating profile:', profileError);
+          throw profileError;
+        }
+      }
+
       // Redirect to home page after successful signup
       navigate("/", { replace: true });
     } catch (error) {
+      console.error('Signup error:', error);
       setError(error instanceof Error ? error.message : "Une erreur est survenue lors de l'inscription");
     } finally {
       setLoading(false);

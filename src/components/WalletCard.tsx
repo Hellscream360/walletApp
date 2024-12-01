@@ -69,7 +69,7 @@ export default function WalletCard({ wallet, onEdit, allowCopy }: WalletCardProp
                   {wallet.name}
                 </h3>
                 <p className="text-sm text-secondary-500 dark:text-secondary-400">
-                  Last updated: {new Date(wallet.updatedAt).toLocaleDateString()}
+                  Last updated: {new Date(wallet.updated_at).toLocaleDateString()}
                 </p>
               </div>
               <div className="flex gap-2">
@@ -83,8 +83,8 @@ export default function WalletCard({ wallet, onEdit, allowCopy }: WalletCardProp
                         id: `copy-${crypto.randomUUID()}`,
                         name: `Copy of ${wallet.name}`,
                         user_id: user?.id,
-                        createdAt: new Date().toISOString(),
-                        updatedAt: new Date().toISOString(),
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString(),
                       };
                       onEdit?.(newWallet);
                     }}

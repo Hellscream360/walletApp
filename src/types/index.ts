@@ -21,6 +21,6 @@ export interface Wallet {
   name: string;
   user_id: string;
   categories: WalletCategory[];
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 }

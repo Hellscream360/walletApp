@@ -53,6 +53,7 @@ export default function Dashboard() {
   const handleEditWallet = async (wallet: Wallet) => {
     try {
       if (wallet.id.startsWith('copy-')) {
+        const now = new Date().toISOString();
         // C'est une copie, on doit la créer dans la base de données
         const { data: newWallet, error } = await supabase
           .from('wallets')
@@ -60,8 +61,8 @@ export default function Dashboard() {
             name: wallet.name,
             user_id: user?.id,
             categories: wallet.categories,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
+            created_at: now,
+            updated_at: now
           })
           .select()
           .single();
@@ -221,14 +222,19 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
       {showForm && (
         <WalletForm
-          onClose={() => setShowForm(false)}
+          onClose={() => {
+            setShowForm(false);
+            setEditingWallet(null);
+          }}
           onSuccess={() => {
             loadWallets();
             setShowForm(false);
+            setEditingWallet(null);
           }}
-          editingWallet={editingWallet}
+          initialWallet={editingWallet}
         />
       )}
       <Toaster />

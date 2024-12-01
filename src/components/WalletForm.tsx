@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { X, Plus, ChevronDown, ChevronUp } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
-import type { WalletCategory, SubCategory } from '../types';
+import type { WalletCategory, SubCategory, Wallet } from '../types';
 import { useToast } from './ui/use-toast';
 
 interface WalletFormProps {
   onClose: () => void;
   onSuccess: () => void;
+  initialWallet?: Wallet | null;
 }
 
 const DEFAULT_COLORS = [
@@ -20,13 +21,15 @@ const SUB_COLORS = [
   '#F9A8D4', '#C4B5FD', '#5EEAD4', '#FDBA74', '#67E8F9'
 ];
 
-export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
+export default function WalletForm({ onClose, onSuccess, initialWallet }: WalletFormProps) {
   const { user } = useAuth();
   const { toast } = useToast();
-  const [name, setName] = useState('');
-  const [categories, setCategories] = useState<WalletCategory[]>([
-    { name: '', percentage: 0, color: DEFAULT_COLORS[0], subCategories: [] }
-  ]);
+  const [name, setName] = useState(initialWallet?.name || '');
+  const [categories, setCategories] = useState<WalletCategory[]>(
+    initialWallet?.categories || [
+      { name: '', percentage: 0, color: DEFAULT_COLORS[0], subCategories: [] }
+    ]
+  );
   const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
 
   const toggleCategory = (index: number) => {

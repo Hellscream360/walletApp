@@ -44,8 +44,8 @@ export const suggestedStrategies: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'balanced-strategy',
@@ -90,8 +90,8 @@ export const suggestedStrategies: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'aggressive-strategy',
@@ -131,8 +131,8 @@ export const suggestedStrategies: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   }
 ];
 

@@ -27,8 +27,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'michael-burry',
@@ -55,8 +55,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'ray-dalio',
@@ -89,8 +89,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'peter-lynch',
@@ -125,8 +125,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'cathie-wood',
@@ -161,8 +161,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'bill-ackman',
@@ -188,8 +188,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'howard-marks',
@@ -224,8 +224,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   },
   {
     id: 'carl-icahn',
@@ -260,8 +260,8 @@ export const famousInvestorsWallets: Wallet[] = [
         ]
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   }
 ];
 

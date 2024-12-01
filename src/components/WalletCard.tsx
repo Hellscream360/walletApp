@@ -36,11 +36,14 @@ export default function WalletCard({ wallet, onEdit, allowCopy }: WalletCardProp
     setShowEditModal(true);
   };
 
+  // Ensure categories is always an array
+  const categories = Array.isArray(wallet.categories) ? wallet.categories : [];
+
   const data = {
-    labels: wallet.categories.map(cat => cat.name),
+    labels: categories.map(cat => cat.name),
     datasets: [{
-      data: wallet.categories.map(cat => cat.percentage),
-      backgroundColor: wallet.categories.map(cat => cat.color),
+      data: categories.map(cat => cat.percentage),
+      backgroundColor: categories.map(cat => cat.color),
       borderWidth: 0
     }]
   };
@@ -79,7 +82,7 @@ export default function WalletCard({ wallet, onEdit, allowCopy }: WalletCardProp
                         ...wallet,
                         id: `copy-${crypto.randomUUID()}`,
                         name: `Copy of ${wallet.name}`,
-                        userId: user?.id,
+                        user_id: user?.id,
                         createdAt: new Date().toISOString(),
                         updatedAt: new Date().toISOString(),
                       };
@@ -91,7 +94,7 @@ export default function WalletCard({ wallet, onEdit, allowCopy }: WalletCardProp
                     <Copy size={20} />
                   </button>
                 )}
-                {onEdit && !wallet.userId?.startsWith('suggested-') && !wallet.userId?.startsWith('famous-') && (
+                {onEdit && !wallet.user_id?.startsWith('suggested-') && !wallet.user_id?.startsWith('famous-') && (
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -111,7 +114,7 @@ export default function WalletCard({ wallet, onEdit, allowCopy }: WalletCardProp
               <Doughnut data={data} options={options} />
             </div>
             <div className="mt-6 space-y-3">
-              {wallet.categories.map((category) => (
+              {categories.map((category) => (
                 <div key={category.name} className="space-y-2">
                   <div 
                     className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary-50/50 dark:hover:bg-secondary-700/30 transition-colors cursor-pointer backdrop-blur-sm"

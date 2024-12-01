@@ -29,12 +29,24 @@ export default function Dashboard() {
       const { data, error } = await supabase
         .from('wallets')
         .select('*')
-        .eq('userId', user?.id);
+        .eq('user_id', user?.id);
 
       if (error) throw error;
-      setWallets(data || []);
+      
+      // Ensure categories is always an array
+      const formattedData = (data || []).map(wallet => ({
+        ...wallet,
+        categories: Array.isArray(wallet.categories) ? wallet.categories : []
+      }));
+      
+      setWallets(formattedData);
     } catch (error) {
       console.error('Error loading wallets:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load wallets",
+        variant: "destructive",
+      });
     }
   };
 
@@ -46,7 +58,7 @@ export default function Dashboard() {
           .from('wallets')
           .insert({
             name: wallet.name,
-            userId: user?.id,
+            user_id: user?.id,
             categories: wallet.categories,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
@@ -210,9 +222,12 @@ export default function Dashboard() {
         </div>
       </div>
       {showForm && (
-        <WalletForm 
-          onClose={() => setShowForm(false)} 
-          onSave={loadWallets} 
+        <WalletForm
+          onClose={() => setShowForm(false)}
+          onSuccess={() => {
+            loadWallets();
+            setShowForm(false);
+          }}
           editingWallet={editingWallet}
         />
       )}

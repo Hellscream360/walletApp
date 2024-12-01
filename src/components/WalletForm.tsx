@@ -152,15 +152,32 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
     if (!validatePercentages()) return;
 
     try {
-      const { error } = await supabase.from('wallets').insert({
+      if (!user?.id) {
+        throw new Error('User not authenticated');
+      }
+
+      const walletData = {
         name,
-        userId: user?.id,
+        user_id: user.id,
         categories,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
-      });
+      };
 
-      if (error) throw error;
+      console.log('Creating wallet with data:', walletData);
+
+      const { data, error } = await supabase
+        .from('wallets')
+        .insert(walletData)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
+
+      console.log('Wallet created successfully:', data);
 
       toast({
         title: "Success",
@@ -169,9 +186,10 @@ export default function WalletForm({ onClose, onSuccess }: WalletFormProps) {
       onSuccess();
       onClose();
     } catch (error) {
+      console.error('Error creating wallet:', error);
       toast({
         title: "Error",
-        description: "Error creating wallet",
+        description: error instanceof Error ? error.message : "Error creating wallet",
         variant: "destructive",
       });
     }

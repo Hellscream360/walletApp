@@ -6,7 +6,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'warren-buffett',
     name: "Warren Buffett's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'Actions US',
@@ -33,7 +33,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'michael-burry',
     name: "Michael Burry's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'Actions US',
@@ -61,7 +61,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'ray-dalio',
     name: "Ray Dalio's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'ETFs',
@@ -95,7 +95,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'peter-lynch',
     name: "Peter Lynch's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'Actions US Small Cap',
@@ -131,7 +131,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'cathie-wood',
     name: "Cathie Wood's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'Actions Tech US',
@@ -167,7 +167,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'bill-ackman',
     name: "Bill Ackman's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'Actions US Large Cap',
@@ -194,7 +194,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'howard-marks',
     name: "Howard Marks's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'Obligations Corporate',
@@ -230,7 +230,7 @@ export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'carl-icahn',
     name: "Carl Icahn's Strategy",
-    userId: 'famous-investors',
+    user_id: 'famous-investors',
     categories: [
       {
         name: 'Actions US Large Cap',

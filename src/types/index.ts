@@ -19,7 +19,7 @@ export interface WalletCategory {
 export interface Wallet {
   id: string;
   name: string;
-  userId: string;
+  user_id: string;
   categories: WalletCategory[];
   createdAt: string;
   updatedAt: string;

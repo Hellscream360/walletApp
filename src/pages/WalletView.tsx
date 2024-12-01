@@ -72,7 +72,7 @@ export default function WalletView() {
           description: "Failed to load wallet",
           variant: "destructive",
         });
-        navigate('/dashboard');
+        navigate('/');
         return;
       }
 
@@ -129,30 +129,39 @@ export default function WalletView() {
   const handleDelete = async () => {
     if (!window.confirm('Are you sure you want to delete this wallet?')) return;
 
-    const { error } = await supabase
-      .from('wallets')
-      .delete()
-      .eq('id', id);
+    try {
+      const { error } = await supabase
+        .from('wallets')
+        .delete()
+        .eq('id', id);
 
-    if (error) {
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Error deleting wallet",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Success",
+        description: "Wallet deleted successfully",
+      });
+      navigate('/');
+    } catch (error) {
+      console.error('Error deleting wallet:', error);
       toast({
         title: "Error",
-        description: "Error deleting wallet",
+        description: "Failed to delete wallet",
         variant: "destructive",
       });
-      return;
     }
-
-    toast({
-      title: "Success",
-      description: "Wallet deleted successfully",
-    });
-    navigate('/dashboard');
   };
 
   const handleEdit = () => {
     // Ne pas permettre l'édition des portefeuilles d'investisseurs célèbres
-    if (wallet?.userId === 'famous-investors') {
+    if (wallet?.user_id === 'famous-investors') {
       toast({
         title: "Error",
         description: "Les portefeuilles des investisseurs célèbres ne peuvent pas être modifiés",
@@ -245,7 +254,7 @@ export default function WalletView() {
     cutout: '40%'
   };
 
-  const isOwner = user?.id === wallet.userId;
+  const isOwner = user?.id === wallet.user_id;
 
   return (
     <div className="max-w-7xl mx-auto px-4">

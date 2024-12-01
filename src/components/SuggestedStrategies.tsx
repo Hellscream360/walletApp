@@ -6,7 +6,7 @@ export const suggestedStrategies: Wallet[] = [
   {
     id: 'conservative-strategy',
     name: "Conservative Strategy",
-    userId: 'suggested-strategies',
+    user_id: 'suggested-strategies',
     categories: [
       {
         name: 'Obligations',
@@ -50,7 +50,7 @@ export const suggestedStrategies: Wallet[] = [
   {
     id: 'balanced-strategy',
     name: "Balanced Strategy",
-    userId: 'suggested-strategies',
+    user_id: 'suggested-strategies',
     categories: [
       {
         name: 'Actions US',
@@ -96,7 +96,7 @@ export const suggestedStrategies: Wallet[] = [
   {
     id: 'aggressive-strategy',
     name: "Aggressive Strategy",
-    userId: 'suggested-strategies',
+    user_id: 'suggested-strategies',
     categories: [
       {
         name: 'Actions US',

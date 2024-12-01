@@ -2,6 +2,15 @@ import React from 'react';
 import type { Wallet } from '../types';
 import WalletCard from './WalletCard';
 
+export interface FamousInvestorInfo {
+  id: string;
+  name: string;
+  avatarUrl: string;
+  biography: string;
+  strategy: string;
+  wallet: Wallet;
+}
+
 export const famousInvestorsWallets: Wallet[] = [
   {
     id: 'warren-buffett',
@@ -265,11 +274,78 @@ export const famousInvestorsWallets: Wallet[] = [
   }
 ];
 
+export const famousInvestorsData: FamousInvestorInfo[] = [
+  {
+    id: 'warren-buffett',
+    name: 'Warren Buffett',
+    avatarUrl: 'https://tse4.mm.bing.net/th?id=OIF.tSbo0kK0CX72zj5%2fGhOAig&pid=Api',
+    biography: 'Warren Buffett, known as the "Oracle of Omaha," is one of the most successful investors of all time. As the CEO of Berkshire Hathaway, he has amassed a fortune through value investing and long-term holdings in quality companies.',
+    strategy: 'Value investing with a focus on companies with strong fundamentals, good management, and competitive advantages. Prefers to buy great companies at fair prices rather than fair companies at great prices.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'warren-buffett')!
+  },
+  {
+    id: 'michael-burry',
+    name: 'Michael Burry',
+    avatarUrl: 'https://tse2.mm.bing.net/th?id=OIP.Tt0KG3s-38T-jgTl5UYmSAHaE7&pid=Api',
+    biography: 'Michael Burry is known for his contrarian investment style and for predicting the 2008 financial crisis. He founded Scion Capital and was featured in "The Big Short."',
+    strategy: 'Deep value investing with a focus on finding market inefficiencies. Known for making concentrated bets based on extensive research and contrarian viewpoints.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'michael-burry')!
+  },
+  {
+    id: 'ray-dalio',
+    name: 'Ray Dalio',
+    avatarUrl: 'https://tse1.mm.bing.net/th?id=OIP.eE0SQQzmuVBXO15m6y4u8QHaE8&pid=Api',
+    biography: 'Ray Dalio is the founder of Bridgewater Associates, the world\'s largest hedge fund. Known for his principles-based approach to life and management, he revolutionized investment strategy with his "All Weather" portfolio concept.',
+    strategy: 'Risk parity and global macro investing. His "All Weather" strategy aims to perform well across different economic environments by balancing risk across asset classes.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'ray-dalio')!
+  },
+  {
+    id: 'peter-lynch',
+    name: 'Peter Lynch',
+    avatarUrl: 'https://tse4.mm.bing.net/th?id=OIP.TjFndixCV1ugWEGWP2Wx6gHaFS&pid=Api',
+    biography: 'Peter Lynch is a legendary investor who managed the Magellan Fund at Fidelity Investments between 1977 and 1990. During his tenure, the fund\'s assets grew from $18 million to $14 billion.',
+    strategy: 'Invest in what you know and understand the company\'s business model completely. Popularized the concept of "ten-baggers" - investments that increase in value by ten times.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'peter-lynch')!
+  },
+  {
+    id: 'cathie-wood',
+    name: 'Cathie Wood',
+    avatarUrl: 'https://tse2.mm.bing.net/th?id=OIP.pIkav_QpOauElte8cBQe-wHaGN&pid=Api',
+    biography: 'Cathie Wood is the founder of ARK Invest, known for her investments in disruptive innovation and emerging technologies.',
+    strategy: 'Growth investing focused on disruptive innovation across sectors like AI, genomics, and blockchain. Emphasizes long-term technological trends and societal transformation.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'cathie-wood')!
+  },
+  {
+    id: 'bill-ackman',
+    name: 'Bill Ackman',
+    avatarUrl: 'https://tse4.mm.bing.net/th?id=OIP.eAQJ4ckeEwCCnTxfjNOWkwHaE7&pid=Api',
+    biography: 'Bill Ackman is the founder and CEO of Pershing Square Capital Management. Known for his activist investing style, he takes large positions in companies and actively works to influence their operations.',
+    strategy: 'Concentrated, value-oriented, and activist investing approach. Focuses on identifying companies with strong fundamentals that could benefit from operational or strategic changes.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'bill-ackman')!
+  },
+  {
+    id: 'howard-marks',
+    name: 'Howard Marks',
+    avatarUrl: 'https://tse1.mm.bing.net/th?id=OIF.o4p4R2WURrHARU8NCRsT2g&pid=Api',
+    biography: 'Howard Marks is the co-founder and co-chairman of Oaktree Capital Management. He is renowned for his insightful market commentary and deep understanding of market cycles.',
+    strategy: 'Contrarian approach with strong focus on risk management. Specializes in distressed debt investing and believes that understanding market psychology is crucial for investment success.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'howard-marks')!
+  },
+  {
+    id: 'carl-icahn',
+    name: 'Carl Icahn',
+    avatarUrl: 'https://tse3.mm.bing.net/th?id=OIP.JXRyZ51r3ybZ1mFoQmtocwHaJj&pid=Api',
+    biography: 'Carl Icahn is a legendary activist investor and founder of Icahn Enterprises. With a career spanning over five decades, he\'s known for taking positions in companies and pushing for changes to increase shareholder value.',
+    strategy: 'Activist investing, identifying undervalued companies and advocating for strategic changes such as spin-offs, management changes, or operational improvements to unlock value.',
+    wallet: famousInvestorsWallets.find(w => w.id === 'carl-icahn')!
+  }
+];
+
 const FamousInvestors: React.FC = () => {
   return (
     <div className="grid grid-cols-1 gap-6">
-      {famousInvestorsWallets.map((wallet) => (
-        <WalletCard key={wallet.id} wallet={wallet} />
+      {famousInvestorsData.map((investor) => (
+        <WalletCard key={investor.id} investor={investor} />
       ))}
     </div>
   );

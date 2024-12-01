@@ -6,7 +6,6 @@ import { useToast } from '../components/ui/use-toast';
 
 interface ProfileData {
   first_name: string;
-  email: string;
   avatar_url?: string;
 }
 
@@ -18,7 +17,6 @@ export default function Profile() {
   const [isSaving, setIsSaving] = useState(false);
   const [profileData, setProfileData] = useState<ProfileData>({
     first_name: '',
-    email: '',
   });
 
   useEffect(() => {
@@ -40,7 +38,6 @@ export default function Profile() {
 
         setProfileData({
           first_name: data?.first_name || '',
-          email: user.email || '',
           avatar_url: data?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.email || '')}`
         });
       } catch (error) {
@@ -60,8 +57,8 @@ export default function Profile() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProfileData(prev => ({
-      ...prev,
+    setProfileData(prevData => ({
+      ...prevData,
       [name]: value
     }));
   };
@@ -152,26 +149,6 @@ export default function Profile() {
               required
               className="w-full px-4 py-2 rounded-lg border border-secondary-200 dark:border-secondary-600 bg-white dark:bg-secondary-700 text-secondary-900 dark:text-secondary-50 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
             />
-          </div>
-
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-secondary-700 dark:text-secondary-200 mb-2"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={user?.email || ''}
-              disabled
-              className="w-full px-4 py-2 rounded-lg border border-secondary-200 dark:border-secondary-600 bg-secondary-100 dark:bg-secondary-600 text-secondary-900 dark:text-secondary-50 cursor-not-allowed"
-            />
-            <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
-              Email cannot be changed
-            </p>
           </div>
 
           <button

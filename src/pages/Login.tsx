@@ -23,7 +23,7 @@ export default function Login() {
         password,
       });
       if (error) throw error;
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error: any) {
       setError(error.message);
     } finally {

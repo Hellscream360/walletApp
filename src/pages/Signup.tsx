@@ -70,8 +70,8 @@ const Signup = () => {
 
       if (signUpError) throw signUpError;
 
-      // Redirect to dashboard or email confirmation page
-      navigate("/dashboard");
+      // Redirect to home page after successful signup
+      navigate("/", { replace: true });
     } catch (error) {
       setError(error instanceof Error ? error.message : "Une erreur est survenue lors de l'inscription");
     } finally {

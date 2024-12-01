@@ -43,7 +43,6 @@ export default function Profile() {
               .insert({
                 id: user.id,
                 first_name: user.user_metadata?.first_name || '',
-                email: user.email,
                 updated_at: now,
                 created_at: now
               });
